@@ -4,5 +4,6 @@ module.exports = {
   devServer: {
     proxy: "http://localhost:3000"
   },
+  // définir le dossier d'éxécution du build
   outputDir: "../client-build"
 };
