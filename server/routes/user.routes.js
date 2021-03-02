@@ -14,8 +14,9 @@ router.get("/current", isLoggedIn, (req, res) => {
 router.post("/", async (req, res, next) => {
   const body = req.body;
   try {
+    // si pas de username ou le username est vide
     if (!body.username || !body.username.length === 0) {
-      res.status(400).json(["username missing"]);
+      res.status(400).json(["nom d'utilisateur manquant !"]);
     }
     await new User({
       email: body.email,

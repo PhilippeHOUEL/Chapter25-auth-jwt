@@ -40,6 +40,7 @@ export default {
   computed: {
     ...mapGetters("user", ["isLoading", "errors"])
   },
+  // pour retourner le getters errors et le mettre dans formErrors
   watch: {
     errors(newValue) {
       this.formErrors = newValue;
@@ -47,10 +48,18 @@ export default {
   },
   methods: {
     trySubmit(e) {
+      // enleve la comportement par défaut de l'execution du formulaire par le comportemnt normal de HTML
       e.preventDefault();
+      // le this.isLoading evite d'appuyer plusieurs sur le bouton submit
+      // isLoading à false pour que le dispatch sur l'action du starte s'exécute
+      // le isLoading peut etre un mgif d'attente...
       if (this.isValid() && !this.isLoading) {
         console.log(this.form);
+        // setTimeout(()=> {
+        //   this.$store.dispatch("user/trySignup", this.form);
+        // }, 3000);
         this.$store.dispatch("user/trySignup", this.form);
+
       }
     },
     isValid() {

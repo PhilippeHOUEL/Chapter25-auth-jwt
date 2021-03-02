@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import Vue from "vue";
+// aller chercher axios avec les clés supplémentaire d'autorisation
 import axios from "./http";
 import router from "./routes";
 
@@ -53,7 +54,9 @@ const user = {
     },
     async refreshToken(context) {
       try {
+        // 
         const response = await axios.get("/api/auth/refresh-token");
+        // Durée du token 15' réinitialiser tous les 14' le token
         setTimeout(() => {
           context.dispatch("refreshToken");
         }, 14 * 60 * 1000);
@@ -73,15 +76,19 @@ const user = {
     },
     signError(state, errors) {
       state.isLoading = false;
+      console.log(errors);
       state.errors = errors.response.data;
     },
     signinSuccess(state, data) {
       state.isLoading = false;
       state.errors = [];
       state.isLoggedIn = true;
+      // pour eviter de stocker le password du coté client
       delete data.user.password;
       state.data = data.user;
       state.jwtToken = data.jwtToken;
+      // localStorage natif dans le javascript client
+      // objet pour stocker de l'info sur le navigateur de l'utilisateur
       localStorage.setItem("jwtToken", data.jwtToken);
     },
     signOut(state) {

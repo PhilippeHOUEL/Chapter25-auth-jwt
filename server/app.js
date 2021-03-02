@@ -7,7 +7,7 @@ const index = require("./routes");
 // mongodb+srv://jean:123@cluster0-urpjt.gcp.mongodb.net/chap24vue?retryWrites=true&w=majority
   
 mongoose.connect(
-  "mongodb+srv://philippe:123@cluster0.0mv5r.mongodb.net/ivaloneV001?retryWrites=true&w=majority",
+  "mongodb+srv://philippe:123@cluster0.0mv5r.mongodb.net/exempleVue?retryWrites=true&w=majority",
   {
     useNewUrlParser: true
   },
@@ -15,7 +15,7 @@ mongoose.connect(
     if (err) {
       console.log("ERROR DB");
     } else {
-      console.log("CONNEXION DB OK !");
+      console.log("CONNEXION DBB :: exempleVue - Hénergement :: ATLAS - OK !");
     }
   }
 );

@@ -37,6 +37,7 @@ export default {
   methods: {
     trySubmit(e) {
       e.preventDefault();
+      // isLoading poru eviter d'envoyer plusieurs demandes.
       if (!this.isLoading) {
         this.$store.dispatch("user/trySignin", this.form);
       }

@@ -10,11 +10,11 @@ router.post("/", async (req, res, next) => {
   try {
     const user = await User.findOne({ email: body.email }, "-__v", {}).exec();
     if (!user) {
-      return res.status(400).json(["user doesn't exist"]);
+      return res.status(400).json(["l'utilisateur n'existe pas !"]);
     }
     const match = await bcrypt.compare(body.password, user.password);
     if (!match) {
-      return res.status(400).json(["password doesn't match"]);
+      return res.status(400).json(["le password n'ets pas bon"]);
     }
     const jwtToken = jsonwebtoken.sign(
       {
@@ -44,9 +44,11 @@ router.get("/refresh-token", async (req, res) => {
     const token = auth.split(" ")[1];
     const decodedToken = jsonwebtoken.verify(token, JWT_SECRET, {
       ignoreExpiration: true
-    });
+    }); 
+    // date d'expiration est > a 7 ours avant alors ok pour le refrech 
     if (moment(decodedToken.exp * 1000) > moment().subtract(7, "d")) {
       const user = await User.findById(decodedToken.sub).exec();
+      // avoir récupérer le user, création à nouveau du token
       const jwtToken = jsonwebtoken.sign(
         {
           sub: user._id.toString()

@@ -19,6 +19,7 @@ export default {
   computed: {
     ...mapGetters("user", ["jwtToken"])
   },
+  // un hoock pour récupérer le token très top dans le process
   beforeMount() {
     if (this.jwtToken) {
       this.$store.dispatch("user/refreshToken");
